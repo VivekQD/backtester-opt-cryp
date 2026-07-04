@@ -1,0 +1,14 @@
+[project]
+name = "btcbt"
+version = "0.1.0"
+description = "Niche plug-and-play backtester for Deribit BTC options (inverse + USDC-linear)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "pyarrow",
+]
+
+[project.optional-dependencies]
+web = ["fastapi", "uvicorn"]
+dev = ["pytest"]

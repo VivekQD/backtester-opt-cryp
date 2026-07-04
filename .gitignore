@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.btcbt_cache/
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# data is local, never committed
+data/
+*.parquet

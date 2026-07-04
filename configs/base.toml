@@ -1,0 +1,30 @@
+# Base run config. Uses the local USDC (linear) dataset.
+
+[data]
+path = "data/options_data/BTC_USDC.parquet"
+# start = "2026-06-12"
+# end   = "2026-06-16"
+
+[venue]
+margin = "linear"          # BTC_USDC dataset
+contract_size = 1.0
+option_trade_fee_rate = 0.0003
+fee_cap_rate = 0.125
+option_settle_fee_rate = 0.00015
+daily_option_settle_fee_rate = 0.0
+twap_mins = 30
+
+[run]
+cash = 100000.0            # USDC
+seed = 0
+
+[fill]
+half_spread_bps = 5.0
+slippage_bps = 1.0
+next_bar = true
+
+[strategy]
+dte_min = 3
+dte_max = 10
+delta = 0.30
+qty = 1
