@@ -1,0 +1,33 @@
+[data]
+root = "/srv/shared/laevitas data/deribit/options_historical_data/marketdata_5m/currency=BTC"
+cache = "/srv/shared/options_projects/backtester/lightweight_backtester/.lwbt_cache/btc"
+asset = "BTC"
+start = "2021-01-01T00:00:00+00:00"
+end = "2024-12-31T23:59:59+00:00"
+snapshot_tolerance_minutes = 30
+
+[strategy]
+structure = "short_straddle"
+entry_frequency = "weekly"
+entry_weekday = 4
+entry_hour_utc = 8
+entry_minute_utc = 0
+dte_min = 6
+dte_max = 8
+quantity = 1
+min_open_interest = 10
+max_relative_spread = 0.15
+
+[execution]
+slippage_bps = 1
+stop_fill_mode = "next_bar_touch"
+
+[run]
+initial_cash_native = 1
+
+[accounting]
+trade_fee_rate = 0.0003
+settlement_fee_rate = 0.00015
+fee_cap_rate = 0.125
+enforce_margin = true
+combo_fee_discount = true
