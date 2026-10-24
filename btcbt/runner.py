@@ -30,7 +30,8 @@ class RunConfig:
 
 
 def _load_dataset(dc: DataConfig) -> Dataset:
-    key = (dc.path, dc.start, dc.end)
+    path = tuple(dc.path) if isinstance(dc.path, (list, tuple)) else dc.path
+    key = (path, dc.start, dc.end, dc.hedge, repr(dc.filter), dc.chunk)
     ds = _DATASET_CACHE.get(key)
     if ds is None:
         ds = Dataset.load(dc)
@@ -52,7 +53,7 @@ def run_one_with_dataset(cfg: RunConfig) -> tuple[RunResult, Dataset]:
 
 def config_hash(cfg: RunConfig) -> str:
     key = (
-        cfg.data.path, cfg.data.start, cfg.data.end,
+        cfg.data.path, cfg.data.start, cfg.data.end, cfg.data.filter, cfg.data.chunk,
         f"{cfg.strategy.__module__}.{cfg.strategy.__qualname__}",
         tuple(sorted(cfg.params.items())),
         cfg.venue.__dict__ if hasattr(cfg.venue, "__dict__") else str(cfg.venue),

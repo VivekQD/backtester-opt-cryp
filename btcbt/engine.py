@@ -137,9 +137,8 @@ class Engine:
         settlement_cache: dict[int, float] = {}
 
         S.on_start(ctx)
-        for ts in ds.timestamps():
-            ts = int(ts)
-            snap = ds.snapshot_at(ts)
+        for snap in ds.iter_bars():      # Dataset or ChunkedDataset (streams files)
+            ts = snap.ts
             self.history.push(snap)
             self.market.update(snap)
             ctx.snap = snap

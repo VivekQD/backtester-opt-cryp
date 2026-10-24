@@ -1,0 +1,49 @@
+# Weekly OTM call + put butterflies (buy OTM1 x1, sell OTM2 x2, buy OTM3 x1 on each side), held to expiry.
+# One continuous run over all yearly archives on ONE cash balance.
+# Multiple files -> ChunkedDataset: each file is split once into monthly parts under
+# .btcbt_cache/parts/ (reused on later runs) and streamed one month at a time.
+
+[data]
+paths = [
+  "data/options_data/BTC_21.parquet",
+  "data/options_data/BTC_22.parquet",
+  "data/options_data/BTC_23.parquet",
+  "data/options_data/BTC_24.parquet",
+  "data/options_data/BTC_25.parquet",
+  "data/options_data/BTC_26.parquet",
+]
+chunk = "month"
+
+# Pushed into the parquet scan: only rows this strategy can touch are kept.
+# Band is wide on purpose so held legs keep their marks after large moves.
+[data.filter]
+option_types = ["call", "put"]
+max_dte = 8.5
+strike_index_band = [0.5, 2.0]
+
+[venue]
+margin = "inverse"
+contract_size = 1.0
+option_trade_fee_rate = 0.0003
+fee_cap_rate = 0.125
+option_settle_fee_rate = 0.00015
+daily_option_settle_fee_rate = 0.0
+twap_mins = 30
+
+[run]
+cash = 5.0                     # BTC
+seed = 0
+
+[fill]
+half_spread_bps = 5.0
+slippage_bps = 1.0
+next_bar = true
+
+[strategy]
+entry_dow = 4                  # Friday
+entry_hour_utc = 8
+entry_window_mins = 60
+target_dte_days = 7.0
+otm_offsets = [1, 2, 3]
+sides = ["call", "put"]        # upside call fly + downside put fly
+qty = 1

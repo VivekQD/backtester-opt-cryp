@@ -8,7 +8,7 @@ from .types import (
 from .venue import VenueConfig, payoff, trade_fee, settle_fee, settlement_index
 from .assemble import tte, moneyness, valid_mask
 from .snapshot import Snapshot, Selector
-from .data import Dataset, DataConfig, Meta, parse_name
+from .data import ChunkedDataset, Dataset, DataConfig, Meta, parse_name, partition_file
 from .execution import FillModel, DefaultFill, MidFill
 from .portfolio import Portfolio
 from .margin import DeribitStandardMargin, MarginModel, SimpleMargin, liquidate
@@ -40,7 +40,8 @@ __all__ = [
     "Order", "Leg", "Combo", "Fill", "Position", "ExpiryEvent", "Equity", "Greeks",
     "market", "limit", "triggered", "close", "combo", "expand_combo",
     "VenueConfig", "payoff", "trade_fee", "settle_fee", "settlement_index",
-    "Snapshot", "Selector", "Dataset", "DataConfig", "Meta", "parse_name",
+    "Snapshot", "Selector", "Dataset", "ChunkedDataset", "DataConfig", "Meta", "parse_name",
+    "partition_file",
     "FillModel", "DefaultFill", "MidFill", "Portfolio",
     "MarginModel", "DeribitStandardMargin", "SimpleMargin", "liquidate",
     "GlobalRegistry", "Market", "default_registry",

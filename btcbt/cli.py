@@ -62,8 +62,9 @@ def build_fill(d: dict) -> DefaultFill:
 
 def build_data(d: dict) -> DataConfig:
     dd = d.get("data", {})
-    return DataConfig(path=dd["path"], start=_to_ns(dd.get("start")),
-                      end=_to_ns(dd.get("end")), hedge=dd.get("hedge"))
+    return DataConfig(path=dd.get("paths", dd.get("path")), start=_to_ns(dd.get("start")),
+                      end=_to_ns(dd.get("end")), hedge=dd.get("hedge"),
+                      filter=dd.get("filter"), chunk=dd.get("chunk"))
 
 
 def build_margin(d: dict):

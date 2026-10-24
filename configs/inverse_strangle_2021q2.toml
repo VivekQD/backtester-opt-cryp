@@ -1,0 +1,41 @@
+# Inverse (coin-margined) run config. Uses the BTC_2x yearly archives.
+# currency = "BTC", so all P&L, cash and fees below are denominated in BTC.
+
+[data]
+path = "data/options_data/BTC_21_2021q2.parquet"
+# start = "2021-04-08"
+# end   = "2021-07-01"
+
+[venue]
+margin = "inverse"             # BTC_2x datasets are coin-margined
+contract_size = 1.0
+option_trade_fee_rate = 0.0003     # 0.0003 BTC per contract, capped at 12.5% of premium
+fee_cap_rate = 0.125
+option_settle_fee_rate = 0.00015   # Friday weekly/monthly delivery
+daily_option_settle_fee_rate = 0.0 # Deribit exempts daily options
+twap_mins = 30
+
+[run]
+cash = 5.0                     # BTC
+seed = 0
+
+[fill]
+half_spread_bps = 5.0
+slippage_bps = 1.0
+next_bar = true
+
+[strategy]
+entry_dow = 4                  # Friday
+entry_hour_utc = 8
+entry_window_mins = 60
+target_dte_days = 2.0
+exit_dow = 0                   # Monday
+exit_hour_utc = 8
+call_delta_abs = 0.35
+put_delta_abs = 0.25           # inverse: put wing sold further OTM
+qty = 1
+put_qty_mult = 1.0
+max_entry_delta_dev = 0.10
+call_delta_stop_abs = 0.70
+put_delta_stop_abs = 0.55      # inverse: tighter, the put tail is unbounded in BTC
+leg_btc_loss_stop = 0.020      # BTC per contract
